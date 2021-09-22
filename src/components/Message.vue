@@ -20,7 +20,7 @@ export default {
 		display: inline-block;
 		font-size: 13px;
 		border-radius: 5px;
-		padding: 3px;
+		padding: 1px 3px;
 		margin: 3px 0;
 	}
 

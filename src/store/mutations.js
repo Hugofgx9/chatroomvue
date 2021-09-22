@@ -25,6 +25,4 @@ export const mutations = {
 			state.messages.push(message);
 		}
 	},
-
-	
 };

@@ -23,7 +23,7 @@ export default {
 		},
 
 		sendMessage() {
-			this.$parent.sendMessage(this.textMessage);
+			this.$emit('send', this.textMessage)
 			this.textMessage = '';
 		}
 	}

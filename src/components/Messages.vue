@@ -9,7 +9,7 @@
 				</li>
 			</ul>
 		</div>
-		<SendMessage />
+		<SendMessage @send="sendMessage"/>
 	</div>
 </template>
 

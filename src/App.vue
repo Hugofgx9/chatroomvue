@@ -1,11 +1,13 @@
 <template>
-  <Messages :socket="socket" />
-  <Users  :socket="socket" />
+  <!-- <Messages :socket="socket" /> -->
+  <!-- <Users  :socket="socket" /> -->
+  <Paper/>
 </template>
 
 <script>
 import Messages from '@/components/Messages.vue';
 import Users from '@/components/Users.vue';
+import Paper from './components/Paper.vue';
 import { io } from 'socket.io-client';
 import { mapMutations } from 'vuex';
 
@@ -13,7 +15,8 @@ export default {
   name: 'App',
   components: {
     Messages,
-    Users
+    Users,
+    Paper
   },
 
   data() {
