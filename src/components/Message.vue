@@ -1,30 +1,21 @@
 <template>
-	<div class="message"> 
-		<span class="content">
-			{{ message.value }}
-		</span>
-		<span class="username">
-			{{ message.user.name }} 
-		</span>
+	<div class="message">
+		<span class="content">{{ message.value }}</span>
+		<span class="username">{{ message.user.name}}</span>
 	</div>
 </template>
 
 <script>
 export default {
 	name: 'Message',
-	props: ['message'],
-	mounted() {
-	},
-
-	methods: {
-	}
+	props: ['message']
+	
 };
 </script>
 
 <style lang="scss" scoped>
 .message {
-
-	.content{
+	.content {
 		background-color: lightblue;
 		display: inline-block;
 		font-size: 13px;
@@ -33,7 +24,7 @@ export default {
 		margin: 3px 0;
 	}
 
-	.username{
+	.username {
 		font-size: 10px;
 	}
 }

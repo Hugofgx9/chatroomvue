@@ -7,6 +7,7 @@
 import Messages from '@/components/Messages.vue';
 import Users from '@/components/Users.vue';
 import { io } from 'socket.io-client';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'App',
@@ -20,6 +21,16 @@ export default {
       socket: io('https://whispering-chamber-09886.herokuapp.com'),
     };
   },
+
+  mounted() {
+    this.setSocket(this.socket);
+  },
+
+  methods: {
+    ...mapMutations([
+      'setSocket'
+    ])
+  }
 };
 </script>
 
