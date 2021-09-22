@@ -1,26 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Messages :socket="socket" />
+  <Users  :socket="socket" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Messages from '@/components/Messages.vue';
+import Users from '@/components/Users.vue';
+import { io } from 'socket.io-client';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    Messages,
+    Users
+  },
+
+  data() {
+    return {
+      socket: io('https://whispering-chamber-09886.herokuapp.com'),
+    };
+  },
+};
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  //-webkit-font-smoothing: antialiased;
+  // -moz-osx-font-smoothing: grayscale;
+  // text-align: center;
+  // color: #2c3e50;
+  // margin-top: 60px;
 }
+
 </style>
