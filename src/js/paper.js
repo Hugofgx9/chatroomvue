@@ -121,8 +121,14 @@ export default class mySvg {
 
 
 		const $el = el._renderer.elem;
-		$el.addEventListener('mousedown', () => el.is_mousedown = true);
-		$el.addEventListener('mouseup', () => el.is_mousedown = false);
+		$el.addEventListener('mousedown', () => {
+			console.log('down');
+			el.is_mousedown = true
+		});
+		$el.addEventListener('mouseup', () => {
+			console.log('up');
+			el.is_mousedown = false
+		});
 
 		function mousemove(ev) {
 			if (el.is_mousedown == true) {
@@ -139,10 +145,7 @@ export default class mySvg {
 		const $path = this.path._renderer.elem;
 
 		const text = `
-		dlskjlcqkj kjqhcjhgsdbgkjh hjcgbskhjgcbkhjgbkj gdkjhcbgkjshsgbckjhg qbckjhdsjhcgbkhjg ckjhgbskg
-		dlskjlcqkj kjqhcjhgsdbgkjh hjcgbskhjgcbkhjgbkj gdkjhcbgkjshsgbckjhg qbckjhdsjhcgbkhjg ckjhgbskg
-		dlskjlcqkj kjqhcjhgsdbgkjh hjcgbskhjgcbkhjgbkj gdkjhcbgkjshsgbckjhg qbckjhdsjhcgbkhjg ckjhgbskg
-		dlskjlcqkj kjqhcjhgsdbgkjh hjcgbskhjgcbkhjgbkj gdkjhcbgkjshsgbckjhg qbckjhdsjhcgbkhjg ckjhgbskg
+			hugo
 		`;
 
 		// this.path.opacity = 0;
@@ -151,6 +154,13 @@ export default class mySvg {
 		this.group.add(this.text);
 		this.two.update();
 		this.text._renderer.elem.innerHTML = `<textPath xlink:href="#${$path.id}">${text}</textPath>`;
+
+		this.text._renderer.elem.style.pointerEvents = "none"
+		const $textPath = this.text._renderer.elem.querySelector('textPath');
+		$textPath.innerHTML =  `<tspan>amet</tspan>` + $textPath.innerHTML;
+		this.text._renderer.elem += '';
+		console.log($textPath);
+		
 
 	}
 }

@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-textPath {
-	pointer-events: none;
+svg {
+	display: none
 }
 </style>

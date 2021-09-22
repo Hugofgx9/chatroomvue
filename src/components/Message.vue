@@ -8,7 +8,7 @@
 <script>
 export default {
 	name: 'Message',
-	props: ['message']
+	props: ['message'],
 	
 };
 </script>
@@ -22,6 +22,7 @@ export default {
 		border-radius: 5px;
 		padding: 1px 3px;
 		margin: 3px 0;
+		word-break: break-word;
 	}
 
 	.username {

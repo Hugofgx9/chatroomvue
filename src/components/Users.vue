@@ -19,14 +19,13 @@ export default {
 	components: {
 		SetUserName
 	},
-	props: ['socket'],
 	mounted() {
-		this.socket.on('user', user => this.addUser(user));
-		this.socket.on('userConnection', user => this.addUser(user));
+		this.$socket.on('user', user => this.addUser(user));
+		this.$socket.on('userConnection', user => this.addUser(user));
 		// this.socket.on('userDisconnection', user => this.getUser(user));
-		this.socket.on('users', users => users.forEach(user => this.addUser(user)));
-		this.socket.on('updateUsername', user => this.updateUser(user));
-		this.socket.emit('getUsers');
+		this.$socket.on('users', users => users.forEach(user => this.addUser(user)));
+		this.$socket.on('updateUsername', user => this.updateUser(user));
+		this.$socket.emit('getUsers');
 	},
 
 	methods: {
@@ -36,7 +35,7 @@ export default {
 		]),
 
 		setUser(userName) {
-			this.socket.emit('setUsername', userName);
+			this.$socket.emit('setUsername', userName);
 		}
 	},
 

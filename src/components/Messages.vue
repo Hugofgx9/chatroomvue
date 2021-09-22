@@ -9,36 +9,28 @@
 				</li>
 			</ul>
 		</div>
-		<SendMessage @send="sendMessage"/>
 	</div>
 </template>
 
 <script>
 import Message from '@/components/Message';
-import SendMessage from './SendMessage.vue';
 import { mapMutations, mapState } from 'vuex';
 
 export default {
 	name: 'Messages',
 	components: {
 		Message,
-		SendMessage
 	},
-	props: ['socket'],
 	mounted() {
-		this.socket.on('message', message => this.addMessage(message));
-		this.socket.on('messages', messages => messages.forEach(msg => this.addMessage(msg)));
-		this.socket.emit('getMessages');
+		this.$socket.on('message', message => this.addMessage(message));
+		this.$socket.on('messages', messages => messages.forEach(msg => this.addMessage(msg)));
+		this.$socket.emit('getMessages');
 	},
 
 	methods: {
 		...mapMutations([
 			'addMessage'
-		]),
-
-		sendMessage(message) {
-			this.socket.emit('message', message);
-		}
+		])
 	},
 
 	computed: mapState([
@@ -68,6 +60,10 @@ export default {
 		/* Hide scrollbar for IE, Edge and Firefox */
 			-ms-overflow-style: none; /* IE and Edge */
 			scrollbar-width: none; /* Firefox */
+
+		li {
+			max-width: 40vw;
+		}
 
 	}
 }

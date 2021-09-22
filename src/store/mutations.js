@@ -1,8 +1,5 @@
 export const mutations = {
 
-	setSocket(state, socket) {
-		state.socket = socket;
-	},
 	addUser(state, user) {
 		if (![...state.users].some(a => a.id === user.id)) {
 		// if (!state.users.some(a => a.id === user.id) && user.id !== state.socket.id) {
@@ -21,7 +18,7 @@ export const mutations = {
 	},
 	// removeUser() {},
 	addMessage(state, message) {
-		if (![...state.messages].some(a => a.id === message.id)) {
+		if ( (message?.value?.length < 300) && ![...state.messages].some(a => a.id === message.id)) {
 			state.messages.push(message);
 		}
 	},

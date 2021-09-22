@@ -23,7 +23,7 @@ export default {
 		},
 
 		sendMessage() {
-			this.$emit('send', this.textMessage)
+			this.$socket.emit('message', this.textMessage);
 			this.textMessage = '';
 		}
 	}
