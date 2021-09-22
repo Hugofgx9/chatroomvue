@@ -1,12 +1,18 @@
-import { looseIndexOf } from "@vue/shared";
 import Two from "two.js";
 
 export default class mySvg {
 	constructor($el) {
 		this.$el = $el;
+		this.onMouseMove = [];
 
 		this.drawPath();
 		this.createControlsPoints();
+		this.addText();
+
+		window.addEventListener('mousemove', (ev) => {
+			ev.preventDefault();
+			this.onMouseMove.forEach(fn => fn(ev));
+		});
 
 	}
 
@@ -60,7 +66,7 @@ export default class mySvg {
 				circle.linewidth = 0;
 				this.group.add(circle);
 
-				circle.onUpdate = function () {
+				circle.update = function () {
 					vertex.controls.right.x = this.translation.x;
 					vertex.controls.right.y = this.translation.y;
 
@@ -80,7 +86,7 @@ export default class mySvg {
 				circle.linewidth = 0;
 				this.group.add(circle);
 
-				circle.onUpdate = function () {
+				circle.update = function () {
 					vertex.controls.left.x = this.translation.x;
 					vertex.controls.left.y = this.translation.y;
 
@@ -90,7 +96,7 @@ export default class mySvg {
 
 			}
 
-			circle_p.onUpdate = function () {
+			circle_p.update = function () {
 				vertex.x = this.translation.x;
 				vertex.y = this.translation.y;
 
@@ -118,69 +124,36 @@ export default class mySvg {
 		$el.addEventListener('mousedown', () => el.is_mousedown = true);
 		$el.addEventListener('mouseup', () => el.is_mousedown = false);
 
-		//create global window event
-
-		window.addEventListener('mousemove', (ev) => {
-			ev.preventDefault();
+		function mousemove(ev) {
 			if (el.is_mousedown == true) {
 				const x = ev.clientX - offset.x;
 				const y = ev.clientY - offset.y;
 				el.translation.set(x, y);
-				el.onUpdate();
+				el.update();
 			}
-		});
+		}
+		this.onMouseMove.push(mousemove);
 	}
 
-	createControlsPoints2() {
-		const radius = 0.5;
-		const editColor = "blue";
+	addText() {
+		const $path = this.path._renderer.elem;
 
-		this.path.vertices.forEach(anchor => {
+		const text = `
+		dlskjlcqkj kjqhcjhgsdbgkjh hjcgbskhjgcbkhjgbkj gdkjhcbgkjshsgbckjhg qbckjhdsjhcgbkhjg ckjhgbskg
+		dlskjlcqkj kjqhcjhgsdbgkjh hjcgbskhjgcbkhjgbkj gdkjhcbgkjshsgbckjhg qbckjhdsjhcgbkhjg ckjhgbskg
+		dlskjlcqkj kjqhcjhgsdbgkjh hjcgbskhjgcbkhjgbkj gdkjhcbgkjshsgbckjhg qbckjhdsjhcgbkhjg ckjhgbskg
+		dlskjlcqkj kjqhcjhgsdbgkjh hjcgbskhjgcbkhjgbkj gdkjhcbgkjshsgbckjhg qbckjhdsjhcgbkhjg ckjhgbskg
+		`;
 
-			const p = this.two.makeCircle(0, 0, radius / 4);
-			const l = this.two.makeCircle(0, 0, radius / 4);
-			const r = this.two.makeCircle(0, 0, radius / 4);
+		// this.path.opacity = 0;
+		this.path.linewidth = 0;
+		this.text = new Two.Text('Hello', 0,0,0);
+		this.group.add(this.text);
+		this.two.update();
+		this.text._renderer.elem.innerHTML = `<textPath xlink:href="#${$path.id}">${text}</textPath>`;
 
-			p.translation.copy(anchor);
-			l.translation.copy(anchor.controls.left).addSelf(anchor);
-			r.translation.copy(anchor.controls.right).addSelf(anchor);
-			p.noStroke().fill = l.noStroke().fill = r.noStroke().fill = editColor;
-
-			const ll = new Two.Path([
-				new Two.Anchor().copy(p.translation),
-				new Two.Anchor().copy(l.translation)
-			]);
-			const rl = new Two.Path([
-				new Two.Anchor().copy(p.translation),
-				new Two.Anchor().copy(r.translation)
-			]);
-			rl.noFill().stroke = ll.noFill().stroke = editColor;
-			rl.linewidth = ll.linewidth = 0.05;
-
-			const group = this.two.makeGroup(rl, ll, p, l, r);
-			// group.translation.addSelf(this.group.translation);
-			this.group.add(group);
-
-			p.translation.bind(Two.Events.change, function () {
-				anchor.copy(this);
-				l.translation.copy(anchor.controls.left).addSelf(this);
-				r.translation.copy(anchor.controls.right).addSelf(this);
-				ll.vertices[0].copy(this);
-				rl.vertices[0].copy(this);
-				ll.vertices[1].copy(l.translation);
-				rl.vertices[1].copy(r.translation);
-			});
-			l.translation.bind(Two.Events.change, function () {
-				anchor.controls.left.copy(this).subSelf(anchor);
-				ll.vertices[1].copy(this);
-			});
-			r.translation.bind(Two.Events.change, function () {
-				anchor.controls.right.copy(this).subSelf(anchor);
-				rl.vertices[1].copy(this);
-			});
-
-			// Update the renderer in order to generate the actual elements.
-			this.two.update();
-		});
 	}
 }
+	// 	<textPath xlink:href="#svg_1" startOffset="0">
+	// 	Lorem ipsum dolor <tspan>amet</tspan> consectetur, adipisicing elit.
+	// </textPath>
