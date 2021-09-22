@@ -1,7 +1,7 @@
 <template>
 	<form class="sendMessage" @submit="checkMessage">
-		<input v-model="textMessage" type="text" />
-		<input type="submit" value="Envoyer" />
+		<input class="text" v-model="textMessage" type="text" placeholder="Envoyer un message dans la spline"/>
+		<input class="button" type="submit" value="Envoyer" />
 	</form>
 </template>
 
@@ -32,5 +32,8 @@ export default {
 
 <style lang="scss" scoped>
 .sendMessage {
+	.text {
+		@include border-full();
+	}
 }
 </style>

@@ -12,37 +12,18 @@
 
 <script>
 import SetUserName from "./SetUserName.vue";
-import { mapMutations, mapState } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
 	name: 'Users',
-	components: {
-		SetUserName
-	},
-	mounted() {
-		this.$socket.on('user', user => this.addUser(user));
-		this.$socket.on('userConnection', user => this.addUser(user));
-		// this.socket.on('userDisconnection', user => this.getUser(user));
-		this.$socket.on('users', users => users.forEach(user => this.addUser(user)));
-		this.$socket.on('updateUsername', user => this.updateUser(user));
-		this.$socket.emit('getUsers');
-	},
+	components: { SetUserName },
 
 	methods: {
-		...mapMutations([
-			'addUser',
-			'updateUser'
-		]),
-
 		setUser(userName) {
 			this.$socket.emit('setUsername', userName);
 		}
 	},
-
-	computed: mapState([
-		'users'
-	])
-
+	computed: mapState(['users'])
 };
 </script>
 

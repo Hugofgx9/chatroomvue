@@ -14,23 +14,12 @@
 
 <script>
 import Message from '@/components/Message';
-import { mapMutations, mapState } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
 	name: 'Messages',
 	components: {
 		Message,
-	},
-	mounted() {
-		this.$socket.on('message', message => this.addMessage(message));
-		this.$socket.on('messages', messages => messages.forEach(msg => this.addMessage(msg)));
-		this.$socket.emit('getMessages');
-	},
-
-	methods: {
-		...mapMutations([
-			'addMessage'
-		])
 	},
 
 	computed: mapState([
