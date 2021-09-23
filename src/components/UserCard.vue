@@ -22,6 +22,8 @@ export default {
   padding: 15px 31px 15px 0;
   display: grid;
   grid-template-columns: auto auto;
+  max-width: 100%;
+  overflow: hidden;
 
   .userInfo {
     display: grid;
@@ -32,7 +34,6 @@ export default {
   }
 
   .round {
-		margin: 0px 15px;
     height: 100%;
     width: auto;
     align-self: center;

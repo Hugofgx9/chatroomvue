@@ -1,15 +1,11 @@
 <template>
-  <Login />
+  <!-- <Login /> -->
   <Header />
-  <!-- <Messages /> -->
-  <!-- <Users /> -->
-  <!-- <Paper/> -->
+  <Paper/>
   <Bottom />
 </template>
 
 <script>
-import Messages from "@/components/Messages.vue";
-import Users from "@/components/Users.vue";
 import Bottom from "./components/Bottom.vue";
 import Paper from "./components/Paper.vue";
 import Header from "./components/Header.vue";
@@ -18,7 +14,7 @@ import { mapMutations } from "vuex";
 
 export default {
   name: "App",
-  components: { Messages, Users, Header, Bottom, Login, Paper },
+  components: { Header, Bottom, Login, Paper },
 
   mounted() {
     //messages

@@ -12,3 +12,12 @@ $border-size: 6px;
 @mixin border {
 	border: 5px solid $black;
 }
+
+@mixin color-svg($color: 'black') {
+	*[stroke]:not([stroke='none']) {
+		stroke: $color !important;
+	}
+	*:not([fill='none']) {
+		fill: $color !important;
+	}
+}

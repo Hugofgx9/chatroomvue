@@ -8,8 +8,19 @@ module.exports = {
       alias: {
         "@": path.resolve(__dirname, vueSrc)
       },
-      extensions: ['.js', '.vue', '.json', '.sass']
-    }
+      extensions: ['.js', '.vue', '.json', '.sass', '.svg']
+    },
+    // module: {
+    //   rules: [
+    //     {
+    //       test: /\.svg$/,
+    //       use: [
+    //         'vue-loader',
+    //         'vue-svg-loader',
+    //       ],
+    //     },
+    //   ],
+    // }
   },
   css: {
     loaderOptions: {
@@ -19,5 +30,5 @@ module.exports = {
         `
       }
     }
-  }
+  },
 };

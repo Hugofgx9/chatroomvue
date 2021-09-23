@@ -1,5 +1,6 @@
 <template>
-  <div class="userMenu" @click="isOpen = !isOpen">
+  <div class="userMenu" :class="{isOpen}" @click="isOpen = !isOpen">
+    <InlineSvg :src="require('@/assets/union.svg')" class="union" />
     <div v-show="!isOpen" class="closeMenu">
       <div class="content">
         <div class="rounds">
@@ -56,11 +57,11 @@ export default {
 .userMenu {
   z-index: 2;
   background-color: $elevation1;
-  max-height: 100vh;
+  max-height: 85vh;
   @include border-full;
 
   .openMenu {
-    padding: 35px 110px 35px 50px;
+    padding: 30px 110px 0 50px;
     width: 100%;
     height: 100%;
     display: grid;
@@ -72,6 +73,7 @@ export default {
   }
 
   .closeMenu {
+    cursor: pointer;
     height: 100%;
     display: grid;
     align-items: center;
@@ -80,7 +82,11 @@ export default {
     .content {
       display: grid;
       align-items: center;
+      width: 100%;
       grid-template-columns: auto auto;
+      justify-content: start;
+      padding: 0 25px;
+
       .rounds {
         display: flex;
       }
@@ -90,6 +96,22 @@ export default {
           margin-left: -10px;
         }
       }
+    }
+  }
+
+  .union {
+    cursor: pointer;
+    position: absolute;
+    right: 25px;
+    top: 45px;
+    color: $black;
+    // transform: rotate(0);
+    transition: transform 0.4s ease-in-out;
+  }
+
+  &.isOpen {
+    .union {
+      transform: rotate(180deg);
     }
   }
 }

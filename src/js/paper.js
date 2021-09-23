@@ -37,6 +37,7 @@ export default class mySvg {
 			true,  /* manual */
 		);
 		this.path.stroke = "black";
+		this.path.noFill();
 		this.path.linewidth = 8;
 		this.group.add(this.path);
 
@@ -159,7 +160,6 @@ export default class mySvg {
 		const $textPath = this.text._renderer.elem.querySelector('textPath');
 		$textPath.innerHTML =  `<tspan>amet</tspan>` + $textPath.innerHTML;
 		this.text._renderer.elem += '';
-		console.log($textPath);
 		
 
 	}

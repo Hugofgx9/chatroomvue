@@ -1,19 +1,21 @@
 <template>
-  <div class="overlay" v-show="isOpen"/>
+  <div class="overlay" v-show="isOpen" />
   <div class="login" v-show="isOpen">
     <h2 class="h1">Ton profil</h2>
     <form @submit="submitUser">
-      <input
-        class="username borderFull"
-        v-model="username"
-        type="text"
-        placeholder="Quel est ton nom ?"
-      />
+      <label class="username borderFull">
+        <InlineSvg :src="require('@/assets/avatar.svg')" />
+        <input
+          v-model="username"
+          type="text"
+          placeholder="Quel est ton nom ?"
+        />
+      </label>
 
       <div class="colorContainer">
         <div class="userColor">
           <Round :color="selectedColor" />
-          <p>Choisis ta couleur</p>
+          <p>Choisis la couleur de tes textes dans la spline </p>
         </div>
 
         <fieldset>
@@ -43,7 +45,7 @@ export default {
   components: { Round },
   data() {
     return {
-      colors: ["lightblue", "lightgreen", "goldenrod"],
+      colors: ["#292929", "#4C4C4C", "#C1C1C1", "#740B07", "#EF130B", "#C23800", "#FF7100", "#FFE400", "#E8A200", "#005510", "#0089A7", "#AF975A", "#00CC00", "#0E0865", "#231FD3", "#00569E", "#00B2FF", "#550069", "#A300BA", "#A75574", "#63300D", "#A0522D", "#AB866D", "#DDDF6D" ],
       selectedColor: "",
       username: "",
       isOpen: true,
@@ -51,21 +53,14 @@ export default {
   },
 
   mounted() {
-    this.colors = [
-      ...this.colors,
-      ...this.colors,
-      ...this.colors,
-      ...this.colors,
-      ...this.colors,
-      ...this.colors,
-    ];
     this.selectedColor = this.colors[0];
   },
 
   methods: {
     submitUser(e) {
       e.preventDefault();
-      if (this.username || !this.username.length === 0) this.$socket.emit('setUsername', this.username);
+      if (this.username || !this.username.length === 0)
+        this.$socket.emit("setUsername", this.username);
       this.isOpen = false;
     },
     onChange(event) {
@@ -77,7 +72,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.overlay{
+.overlay {
   z-index: 3;
   position: fixed;
   inset: 0px;
@@ -103,7 +98,15 @@ export default {
 
     .username {
       height: 64px;
-      padding-left: 30px;
+      display: flex;
+      align-items: center;
+
+      svg {
+        fill: $black;
+        margin-left: 30px;
+        margin-right: 20px;
+      }
+
     }
     .colorContainer {
       @include border-full();
@@ -157,7 +160,7 @@ export default {
         }
       }
     }
-    .button{
+    .button {
       cursor: pointer;
       height: 64px;
       background-color: $black;
