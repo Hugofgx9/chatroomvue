@@ -1,4 +1,5 @@
 <template>
+  <Login />
   <Header />
   <!-- <Messages /> -->
   <!-- <Users /> -->
@@ -12,11 +13,12 @@ import Users from '@/components/Users.vue';
 import Bottom from './components/Bottom.vue';
 import Paper from './components/Paper.vue';
 import Header from './components/Header.vue';
+import Login from './components/Login.vue';
 import { mapMutations } from 'vuex';
 
 export default {
   name: 'App',
-  components: { Messages, Users, Header, Bottom, Paper },
+  components: { Messages, Users, Header, Bottom, Login ,Paper },
 
   mounted() {
     //messages
@@ -38,12 +40,15 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" >
+@import "@/sass/style.scss";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  background-color: $elevation2;
   // display: grid;
   // grid-template-columns: 1fr 1fr;
 }

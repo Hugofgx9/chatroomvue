@@ -1,6 +1,7 @@
 <template>
 	<form class="sendMessage" @submit="checkMessage">
-		<input class="text" v-model="textMessage" type="text" placeholder="Envoyer un message dans la spline"/>
+		<i></i>
+		<input class="text" ref="textInput" v-model="textMessage" type="text" placeholder="Envoyer un message dans la spline"/>
 		<input class="button" type="submit" value="Envoyer" />
 	</form>
 </template>
@@ -10,10 +11,13 @@ export default {
 	name: 'SendMessage',
 	data() {
 		return {
-			textMessage: ''
+			textMessage: '',
+			isFocus: false
 		};
 	},
 	mounted() {
+		this.$refs.textInput.addEventListener('focus', () => this.isFocus = true);
+		this.$refs.textInput.addEventListener('focusout', () => this.isFocus = false);
 	},
 
 	methods: {
@@ -32,8 +36,19 @@ export default {
 
 <style lang="scss" scoped>
 .sendMessage {
+	@include border();
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	background-color: $elevation1;
+
+	i {
+		background-color: $black;
+		width: 79px;
+	}
+
 	.text {
-		@include border-full();
+		margin-left: 30px;
+		// height: 100%;
 	}
 }
 </style>

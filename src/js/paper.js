@@ -145,7 +145,7 @@ export default class mySvg {
 		const $path = this.path._renderer.elem;
 
 		const text = `
-			hugo
+			hugodsfvlskjlkj lkfjdlksj lkjl skdjflkjfl skjdflfdkj lkjfs lkj
 		`;
 
 		// this.path.opacity = 0;
