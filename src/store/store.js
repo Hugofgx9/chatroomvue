@@ -6,7 +6,7 @@ import { getters } from './getters';
 const store = createStore({
    state,
    mutations,
-   // getters
+   getters
 });
 
 export default store;

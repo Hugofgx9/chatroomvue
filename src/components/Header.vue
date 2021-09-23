@@ -1,6 +1,6 @@
 <template>
 	<header class="header">
-		<h1>#SPLINE_TCHAT</h1>
+		<h1 class="h1">#SPLINE_TCHAT</h1>
 		<UserMenu class="UserMenu"/>
 	</header>
 </template>

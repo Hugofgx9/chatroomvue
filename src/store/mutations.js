@@ -14,7 +14,15 @@ export const mutations = {
 				.filter(msg => msg.user.id === user_to_update.id)
 				.map(msg => msg.user = user_to_update);
 		}
+	},
 
+	removeUser(state, user) {
+		state.users = state.users.filter( a => a.id !== user.id);
+	},
+
+	setUserColor(state, {user, color}){
+		const current_user =  state.users.find(a => a.id === user.id);
+		current_user.color = color;
 	},
 	// removeUser() {},
 	addMessage(state, message) {
@@ -22,4 +30,9 @@ export const mutations = {
 			state.messages.push(message);
 		}
 	},
+
+
+	setSocket(state, socket) {
+		state.socket = socket;
+	}
 };

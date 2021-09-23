@@ -1,6 +1,7 @@
 <template>
+  <div class="overlay" v-show="isOpen"/>
   <div class="login" v-show="isOpen">
-    <h2>Ton profil</h2>
+    <h2 class="h1">Ton profil</h2>
     <form @submit="submitUser">
       <input
         class="username borderFull"
@@ -76,6 +77,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.overlay{
+  z-index: 3;
+  position: fixed;
+  inset: 0px;
+}
 .login {
   @include border-full();
   z-index: 3;
@@ -99,7 +105,6 @@ export default {
       height: 64px;
       padding-left: 30px;
     }
-
     .colorContainer {
       @include border-full();
       padding: 25px 38px;
@@ -151,6 +156,13 @@ export default {
           background-color: $black;
         }
       }
+    }
+    .button{
+      cursor: pointer;
+      height: 64px;
+      background-color: $black;
+      color: $elevation1;
+      text-transform: uppercase;
     }
   }
 

@@ -9,6 +9,7 @@
 export default {
   props: {
 		color: {
+			default: 'grey',
 			type: String
 		}, 
 		border: {
@@ -26,7 +27,7 @@ export default {
 	width: 40px;
   display: inline-block;
   aspect-ratio: 1;
-  background-color: orange;
+  background-color: grey;
   border-radius: 50%;
   border: 3px solid $elevation1;
 }

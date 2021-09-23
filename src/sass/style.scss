@@ -1,10 +1,43 @@
+@import "font.scss";
 @import "variable.scss";
 @import "init.scss";
 
-section {
-	width: 100vw;
-	height: 100vh;
-	background-color: white;
+p, span, h1, h2, h3, h4, h5, button {
+	font-family: "Mukta", Arial, Helvetica, sans-serif;
+	font-weight: 600;
+	font-size: 18px;
+	color: $black;
 }
 
+.h1 {
+	font-size: 48px;
+	font-weight: 600;
+}
+.h2 {
+	font-size: 40px;
+	font-weight: 600;
+}
+.h3 {
+	font-size: 24px;
+	font-weight: 600;
+}
+.subtitle {
+	font-size: 24px;
+	font-weight: normal;
+	color: $subtitle;
+}
 
+input[type="text"]::placeholder {
+	font-family: "Mukta", Arial, Helvetica, sans-serif;
+	font-weight: 600;
+	font-size: 18px;
+	color: $subtitle;
+}
+
+input[type="submit"] {
+	font-family: "Mukta", Arial, Helvetica, sans-serif;
+}
+
+.separator{
+	border: 2px solid $separator;
+}
