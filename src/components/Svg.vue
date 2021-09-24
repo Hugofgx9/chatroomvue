@@ -7,7 +7,13 @@ import svgPath from "@/js/svg.js";
 
 export default {
 	mounted(){
-		new svgPath(this.$refs.container)
+		this.svg = new svgPath(this.$refs.container);
+    this.$socket.on("message", (message) => {
+			this.svg.addMessage(message.value, 'red')
+		});
+
+		window.addEventListener( 'wheel', (e) => this.svg.scroll(e))
+
 	}
 
 }
@@ -17,6 +23,7 @@ export default {
 
 div {
 	position: fixed;
+	overflow: hidden;
 	top: 0;
 	left: 0;
 	width: 100vw;

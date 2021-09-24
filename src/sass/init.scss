@@ -21,7 +21,9 @@ h6 {
 }
 
 body {
-	overflow-x: hidden;
+	// overflow-x: hidden;
+	// overscroll-behavior-y: none;
+	overflow: hidden;
 }
 
 a {

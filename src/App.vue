@@ -1,9 +1,7 @@
 <template>
   <!-- <Login /> -->
   <Header />
-  <!-- <Paper/> -->
   <Svg/>
-  <!-- <Konva /> -->
   <Bottom />
 </template>
 
