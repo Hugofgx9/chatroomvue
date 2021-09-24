@@ -8,34 +8,74 @@ export default class SvgPath {
 			.addTo($el)
 			.size('100%', '100%');
 
+		this.width = window.innerWidth;
+		this.height = window.innerHeight;
+		this.color = '#4f80ff';
+		this.show_anchor = true;
+
 		this.createCircles();
+		this.createLines();
 		this.createPath();
 	}
 
 	createCircles() {
-		this.M1 = { svg: this.draw.circle(60).fill('#dde3e1'), cx: 20, cy: 600 };
-		this.C1_1 = { svg: this.draw.circle(60).fill('#dde3e1'), cx: 350, cy: 300 };
-		this.C1_2 = { svg: this.draw.circle(60).fill('#dde3e1'), cx: 520, cy: 380 };
-		this.C1_3 = { svg: this.draw.circle(60).fill('#dde3e1'), cx: 800, cy: 550 };
-		this.C2_1 = { svg: this.draw.circle(60).fill('#dde3e1'), cx: 500, cy: 550 };
-		this.C2_2 = { svg: this.draw.circle(60).fill('#dde3e1'), cx: 640, cy: 230 };
-		this.C2_3 = { svg: this.draw.circle(60).fill('#dde3e1'), cx: 1340, cy: 353 };
+		this.M1 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.1, cy: this.height * 0.7 };
+		this.C1_1 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.3, cy: this.height * 0.5 };
+		this.C1_2 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.6, cy: this.height * 0.45 };
+		this.C1_3 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.7, cy: this.height * 0.55 };
+		this.C2_1 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.52, cy: this.height * 0.56 };
+		this.C2_2 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.45, cy: this.height * 0.3 };
+		this.C2_3 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.9, cy: this.height * 0.5 };
 
 		this.circles = [this.M1, this.C1_1, this.C1_2, this.C1_3, this.C2_1, this.C2_2, this.C2_3];
 
 		//listen
 		this.circles.forEach(c => {
-			c.svg.move(c.cx, c.cy);
+			c.svg.node.style.cursor = "pointer";
+			const { width, height } = c.svg.bbox();
+			c.svg.move(c.cx - (width / 2), c.cy - (height / 2));
 			c.svg.draggable();
 			c.svg.on('dragmove', () => {
 				const { cx, cy } = c.svg.bbox();
 				c.cx = cx;
 				c.cy = cy;
+				this.updateLines();
 				this.updatePath();
 			});
 		});
 	}
 
+	showAnchors() {
+		this.show_anchor = true;
+		this.lines.forEach(l => l.svg.show());
+		this.circles.forEach(l => l.svg.show());
+	}
+	
+	hideAnchors() {
+		this.show_anchor = false;
+		this.lines.forEach(l => l.svg.hide());
+		this.circles.forEach(l => l.svg.hide());
+	}
+
+	createLines() {
+		this.line1 = { svg: this.draw.line(0, 0, 0, 0), circles: [this.M1, this.C1_1] };
+		this.line2 = { svg: this.draw.line(0, 0, 0, 0), circles: [this.C1_3, this.C1_2] };
+		this.line3 = { svg: this.draw.line(0, 0, 0, 0), circles: [this.C1_3, this.C2_1] };
+		this.line4 = { svg: this.draw.line(0, 0, 0, 0), circles: [this.C2_3, this.C2_2] };
+
+		this.lines = [this.line1, this.line2, this.line3, this.line4];
+		this.lines.forEach(line => {
+			line.svg.stroke({ color: this.color, width: 1 }).back();
+		});
+
+		this.updateLines();
+	}
+
+	updateLines() {
+		this.lines.forEach(line => {
+			line.svg.plot(line.circles[0].cx, line.circles[0].cy, line.circles[1].cx, line.circles[1].cy);
+		});
+	}
 	createPath() {
 		this.path = this.draw.path(`
 				M	${this.M1.cx} ${this.M1.cy} 
@@ -43,10 +83,12 @@ export default class SvgPath {
 				C ${this.C2_1.cx} ${this.C2_1.cy}, ${this.C2_2.cx} ${this.C2_2.cy}, ${this.C2_3.cx} ${this.C2_3.cy}
 			`)
 			.fill({ opacity: 0 })
-			.stroke({ color: 'black', width: 0.2 })
+			// .stroke({ color: 'black', width: 0.2 })
 			.text('')
 			.build(true)
 			.attr('startOffset', 0);
+
+		this.path.track().node.style.pointerEvents = "none";
 	}
 	updatePath() {
 		this.path.plot(`
@@ -58,7 +100,7 @@ export default class SvgPath {
 
 	addMessage(message = "", color = "blue") {
 		color = '#' + this.randomColor();
-		this.path.tspan(message + " ").fill(color).back();
+		let tspan = this.path.tspan(`${message}   `).fill(color).back();
 	}
 
 	scroll(ev) {

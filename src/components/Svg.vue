@@ -8,9 +8,8 @@ import svgPath from "@/js/svg.js";
 export default {
 	mounted(){
 		this.svg = new svgPath(this.$refs.container);
-    this.$socket.on("message", (message) => {
-			this.svg.addMessage(message.value, 'red')
-		});
+    this.$socket.on("message", (message) => this.svg.addMessage(message.value));
+		this.$socket.on("messages", (messages) => messages.forEach((msg) => this.svg.addMessage(msg.value)));
 
 		window.addEventListener( 'wheel', (e) => this.svg.scroll(e))
 
