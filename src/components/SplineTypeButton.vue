@@ -24,6 +24,7 @@ export default {
 
 button {
 	@include border();
+	cursor: pointer;
   background-color: $elevation1;
 }
 

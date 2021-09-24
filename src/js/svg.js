@@ -11,22 +11,22 @@ export default class SvgPath {
 		this.width = window.innerWidth;
 		this.height = window.innerHeight;
 		this.color = '#4f80ff';
-		this.show_anchor = true;
 		this.tspans = [];
 
 		this.createCircles();
 		this.createLines();
 		this.createPath();
+		this.hideAnchors();
 	}
 
 	createCircles() {
-		this.M1 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.1, cy: this.height * 0.7 };
+		this.M1 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.01, cy: this.height * 0.7 };
 		this.C1_1 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.3, cy: this.height * 0.5 };
 		this.C1_2 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.6, cy: this.height * 0.45 };
 		this.C1_3 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.7, cy: this.height * 0.55 };
 		this.C2_1 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.52, cy: this.height * 0.56 };
 		this.C2_2 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.45, cy: this.height * 0.3 };
-		this.C2_3 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.9, cy: this.height * 0.5 };
+		this.C2_3 = { svg: this.draw.circle(35).fill(this.color), cx: this.width * 0.99, cy: this.height * 0.5 };
 
 		this.circles = [this.M1, this.C1_1, this.C1_2, this.C1_3, this.C2_1, this.C2_2, this.C2_3];
 
@@ -68,7 +68,8 @@ export default class SvgPath {
 			.fill({ opacity: 0 })
 			// .stroke({ color: 'black', width: 0.2 })
 			.text('')
-			.font('size', 25)
+			.font('size', 23)
+			.font('family', 'Helvetica')
 			.build(true)
 			.attr('startOffset', 0);
 
@@ -95,7 +96,7 @@ export default class SvgPath {
 	}
 
 	scroll(ev) {
-		let newVal = this.path.attr('startOffset') + ev.deltaY * 0.03;
+		let newVal = this.path.attr('startOffset') + ev.deltaY * 0.05;
 		newVal = Math.min(20, newVal);
 		this.path.attr('startOffset', newVal);
 	}
@@ -105,13 +106,11 @@ export default class SvgPath {
 	}
 
 	showAnchors() {
-		this.show_anchor = true;
 		this.lines.forEach(l => l.svg.show());
 		this.circles.forEach(l => l.svg.show());
 	}
 
 	hideAnchors() {
-		this.show_anchor = false;
 		this.lines.forEach(l => l.svg.hide());
 		this.circles.forEach(l => l.svg.hide());
 	}
