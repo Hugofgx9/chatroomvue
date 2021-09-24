@@ -10,7 +10,7 @@ export default class SvgPath {
 
 		this.width = window.innerWidth;
 		this.height = window.innerHeight;
-		this.color = '#4f80ff';
+		this.color = '#292929';
 		this.tspans = [];
 
 		this.createCircles();
@@ -94,7 +94,7 @@ export default class SvgPath {
 		const tspan = this.path.tspan(`${message}   `).fill(color).back();
 		this.tspans.push(tspan);
 		tspan.node.addEventListener('mouseover', () => {
-			// console.log(userID);
+			console.log(userID);
 		})
 	}
 
