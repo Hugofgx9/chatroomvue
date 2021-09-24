@@ -14,7 +14,7 @@ export default {
       messages.forEach((msg) => this.addMessage(msg))
     );
 
-    window.addEventListener("wheel", (e) => this.svg.scroll(e));
+    this.$refs.container.addEventListener("wheel", (e) => this.svg.scroll(e));
   },
 
   methods: {
