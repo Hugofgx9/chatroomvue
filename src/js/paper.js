@@ -1,4 +1,5 @@
 import Two from "two.js";
+import pathController from "./pathController";
 
 export default class mySvg {
 	constructor($el) {
@@ -25,9 +26,9 @@ export default class mySvg {
 		this.group = new Two.Group();
 
 		let vertices = [
-			new Two.Anchor(0, 100, null, null, 100, 100, 'M'),
-			new Two.Anchor(100, 0, 30, 20, null, null, 'C'),
-			new Two.Anchor(-10, -30, -50, 20, null, null, 'C')
+			new Two.Anchor(-600, 200, null, null, 0, 100, 'M'),
+			new Two.Anchor(100, -200, -200, -300, null, null, 'C'),
+			new Two.Anchor(500, 200, -50, 20, null, null, 'C')
 		];
 
 		this.path = new Two.Path(
@@ -146,20 +147,22 @@ export default class mySvg {
 		const $path = this.path._renderer.elem;
 
 		const text = `
-			hugodsfvlskjlkj lkfjdlksj lkjl skdjflkjfl skjdflfdkj lkjfs lkj
 		`;
 
 		// this.path.opacity = 0;
 		this.path.linewidth = 0;
-		this.text = new Two.Text('Hello', 0,0,0);
+		this.text = new Two.Text('', 0,0,0);
 		this.group.add(this.text);
 		this.two.update();
 		this.text._renderer.elem.innerHTML = `<textPath xlink:href="#${$path.id}">${text}</textPath>`;
 
 		this.text._renderer.elem.style.pointerEvents = "none"
 		const $textPath = this.text._renderer.elem.querySelector('textPath');
-		$textPath.innerHTML =  `<tspan>amet</tspan>` + $textPath.innerHTML;
-		this.text._renderer.elem += '';
+		// $textPath.innerHTML =  `<tspan></tspan>` + $textPath.innerHTML;
+		// this.text._renderer.elem += '';
+		this.path._renderer.elem.style.textRendering = 'optimizeSpeed';
+
+		new pathController($textPath)
 		
 
 	}

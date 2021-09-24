@@ -1,20 +1,24 @@
 <template>
   <!-- <Login /> -->
   <Header />
-  <Paper/>
+  <!-- <Paper/> -->
+  <Svg/>
+  <!-- <Konva /> -->
   <Bottom />
 </template>
 
 <script>
 import Bottom from "./components/Bottom.vue";
+import Svg from "./components/Svg.vue";
 import Paper from "./components/Paper.vue";
+import Konva from "./components/Konva.vue";
 import Header from "./components/Header.vue";
 import Login from "./components/Login.vue";
 import { mapMutations } from "vuex";
 
 export default {
   name: "App",
-  components: { Header, Bottom, Login, Paper },
+  components: { Header, Bottom, Login, Paper, Konva, Svg },
 
   mounted() {
     //messages

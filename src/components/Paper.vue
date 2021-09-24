@@ -17,6 +17,7 @@ export default {
 
 <style lang="scss" scoped>
 svg {
-	display: none
+	display: none;
+	text-rendering: optimizeSpeed;
 }
 </style>
