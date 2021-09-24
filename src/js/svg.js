@@ -89,10 +89,13 @@ export default class SvgPath {
 		`);
 	}
 
-	addMessage(message = "", color = null) {
+	addMessage(message = "", color = null, userID) {
 		if (color === null) color = '#' + this.randomColor;
-		let tspan = this.path.tspan(`${message}   `).fill(color).back();
+		const tspan = this.path.tspan(`${message}   `).fill(color).back();
 		this.tspans.push(tspan);
+		tspan.node.addEventListener('mouseover', () => {
+			// console.log(userID);
+		})
 	}
 
 	scroll(ev) {

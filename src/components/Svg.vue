@@ -21,7 +21,7 @@ export default {
     addMessage(message) {
       const user_color =
         this.users.find((a) => a.id === message.user.id)?.color || null;
-      this.svg.addMessage(message.value, user_color);
+      this.svg.addMessage(message.value, user_color, message.user.id);
     },
   },
 
