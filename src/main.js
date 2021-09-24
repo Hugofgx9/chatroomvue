@@ -3,7 +3,6 @@ import App from './App.vue';
 import store from "./store/store"
 import { io } from 'socket.io-client';
 import InlineSvg from 'vue-inline-svg';
-import VueKonva from 'vue3-konva';
 
 
 
@@ -12,6 +11,5 @@ app.config.globalProperties.$socket = io('https://whispering-chamber-09886.herok
 app.component('InlineSvg', InlineSvg);
 
 
-app.use(VueKonva);
 app.use(store);
 app.mount('#app');
