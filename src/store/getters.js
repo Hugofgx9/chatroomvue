@@ -11,5 +11,10 @@ export const getters = {
 	getOtherUsers: (state) => {
 		if (!state.socket || !state.users) return false;
 		return state.users.filter(a => a.id !== state.socket.id);
+	},
+
+	getRandomColor: (state) => (nb) => {
+		const colors = state.colors;
+		return colors[Math.floor(nb * colors.length)];
 	}
 }

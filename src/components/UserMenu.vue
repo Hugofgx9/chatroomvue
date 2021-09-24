@@ -6,8 +6,8 @@
         <div class="rounds">
           <Round
             class="round"
-            color="red"
             v-for="user in getOtherUsers.slice(0, 3)"
+            :color="user.color"
             :key="user.id"
           />
         </div>

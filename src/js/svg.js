@@ -12,6 +12,7 @@ export default class SvgPath {
 		this.height = window.innerHeight;
 		this.color = '#4f80ff';
 		this.show_anchor = true;
+		this.tspans = [];
 
 		this.createCircles();
 		this.createLines();
@@ -45,18 +46,6 @@ export default class SvgPath {
 		});
 	}
 
-	showAnchors() {
-		this.show_anchor = true;
-		this.lines.forEach(l => l.svg.show());
-		this.circles.forEach(l => l.svg.show());
-	}
-	
-	hideAnchors() {
-		this.show_anchor = false;
-		this.lines.forEach(l => l.svg.hide());
-		this.circles.forEach(l => l.svg.hide());
-	}
-
 	createLines() {
 		this.line1 = { svg: this.draw.line(0, 0, 0, 0), circles: [this.M1, this.C1_1] };
 		this.line2 = { svg: this.draw.line(0, 0, 0, 0), circles: [this.C1_3, this.C1_2] };
@@ -70,25 +59,26 @@ export default class SvgPath {
 
 		this.updateLines();
 	}
+	createPath() {
+		this.path = this.draw.path(`
+		M	${this.M1.cx} ${this.M1.cy} 
+		C ${this.C1_1.cx} ${this.C1_1.cy}, ${this.C1_2.cx} ${this.C1_2.cy}, ${this.C1_3.cx} ${this.C1_3.cy}
+		C ${this.C2_1.cx} ${this.C2_1.cy}, ${this.C2_2.cx} ${this.C2_2.cy}, ${this.C2_3.cx} ${this.C2_3.cy}
+		`)
+			.fill({ opacity: 0 })
+			// .stroke({ color: 'black', width: 0.2 })
+			.text('')
+			.font('size', 25)
+			.build(true)
+			.attr('startOffset', 0);
+
+		this.path.track().node.style.pointerEvents = "none";
+	}
 
 	updateLines() {
 		this.lines.forEach(line => {
 			line.svg.plot(line.circles[0].cx, line.circles[0].cy, line.circles[1].cx, line.circles[1].cy);
 		});
-	}
-	createPath() {
-		this.path = this.draw.path(`
-				M	${this.M1.cx} ${this.M1.cy} 
-				C ${this.C1_1.cx} ${this.C1_1.cy}, ${this.C1_2.cx} ${this.C1_2.cy}, ${this.C1_3.cx} ${this.C1_3.cy}
-				C ${this.C2_1.cx} ${this.C2_1.cy}, ${this.C2_2.cx} ${this.C2_2.cy}, ${this.C2_3.cx} ${this.C2_3.cy}
-			`)
-			.fill({ opacity: 0 })
-			// .stroke({ color: 'black', width: 0.2 })
-			.text('')
-			.build(true)
-			.attr('startOffset', 0);
-
-		this.path.track().node.style.pointerEvents = "none";
 	}
 	updatePath() {
 		this.path.plot(`
@@ -98,20 +88,36 @@ export default class SvgPath {
 		`);
 	}
 
-	addMessage(message = "", color = "blue") {
-		color = '#' + this.randomColor();
+	addMessage(message = "", color = null) {
+		if (color === null) color = '#' + this.randomColor;
 		let tspan = this.path.tspan(`${message}   `).fill(color).back();
+		this.tspans.push(tspan);
 	}
 
 	scroll(ev) {
-		let newVal = this.path.attr('startOffset') + ev.deltaY * 0.02;
-
+		let newVal = this.path.attr('startOffset') + ev.deltaY * 0.03;
 		newVal = Math.min(20, newVal);
 		this.path.attr('startOffset', newVal);
 	}
 
 	randomColor() {
 		return Math.floor(Math.random() * 16777215).toString(16);
+	}
+
+	showAnchors() {
+		this.show_anchor = true;
+		this.lines.forEach(l => l.svg.show());
+		this.circles.forEach(l => l.svg.show());
+	}
+
+	hideAnchors() {
+		this.show_anchor = false;
+		this.lines.forEach(l => l.svg.hide());
+		this.circles.forEach(l => l.svg.hide());
+	}
+
+	setAnchorsVisibility(bool) {
+		bool ? this.showAnchors() : this.hideAnchors()
 	}
 
 }

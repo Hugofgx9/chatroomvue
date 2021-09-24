@@ -1,12 +1,21 @@
 <template>
-	<button>
+	<button @click="click">
 		<i></i>
-		<span>Button</span>
+		<span>Anchors</span>
 	</button>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 export default {
+
+	methods:{
+		click(){
+			console.log('click');
+			this.toogleAnchors();
+		},
+		...mapMutations(['toogleAnchors'])
+	},
 
 }
 </script>

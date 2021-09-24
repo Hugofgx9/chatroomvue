@@ -1,6 +1,6 @@
 <template>
   <div class="userCard">
-    <Round class="round" color="lightblue" />
+    <Round class="round" :color="user.color" />
     <div class="userInfo">
       <span class="username">{{ user.name }}</span>
       <span class="subtitle">Connecté(e) depuis 15h00</span>

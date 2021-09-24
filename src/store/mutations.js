@@ -2,7 +2,10 @@ export const mutations = {
 
 	addUser(state, user) {
 		if (![...state.users].some(a => a.id === user.id)) {
-		// if (!state.users.some(a => a.id === user.id) && user.id !== state.socket.id) {
+			if (user.id !== state.socket.id) {
+				const colors = state.colors;
+				user.color = colors[Math.floor(Math.random() * colors.length)];
+			}
 			state.users.push(user);
 		}
 	},
@@ -17,22 +20,25 @@ export const mutations = {
 	},
 
 	removeUser(state, user) {
-		state.users = state.users.filter( a => a.id !== user.id);
+		state.users = state.users.filter(a => a.id !== user.id);
 	},
 
-	setUserColor(state, {user, color}){
-		const current_user =  state.users.find(a => a.id === user.id);
+	setUserColor(state, { user, color }) {
+		const current_user = state.users.find(a => a.id === user.id);
 		current_user.color = color;
 	},
 	// removeUser() {},
 	addMessage(state, message) {
-		if ( (message?.value?.length < 300) && ![...state.messages].some(a => a.id === message.id)) {
+		if ((message?.value?.length < 300) && ![...state.messages].some(a => a.id === message.id)) {
 			state.messages.push(message);
 		}
 	},
 
-
 	setSocket(state, socket) {
 		state.socket = socket;
+	},
+
+	toogleAnchors(state) {
+		state.anchors = !state.anchors;
 	}
 };

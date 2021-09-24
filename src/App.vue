@@ -1,26 +1,31 @@
 <template>
-  <!-- <Login /> -->
-  <Header />
-  <Svg/>
-  <Bottom />
+  <Login v-if="connected" />
+  <Header v-if="connected" />
+  <Svg v-if="connected"/>
+  <Bottom v-if="connected" />
 </template>
 
 <script>
 import Bottom from "./components/Bottom.vue";
 import Svg from "./components/Svg.vue";
-import Paper from "./components/Paper.vue";
-import Konva from "./components/Konva.vue";
 import Header from "./components/Header.vue";
 import Login from "./components/Login.vue";
 import { mapMutations } from "vuex";
 
 export default {
   name: "App",
-  components: { Header, Bottom, Login, Paper, Konva, Svg },
+  components: { Header, Bottom, Login, Svg },
+
+  data(){
+    return {
+      connected: false
+    }
+  },
 
   mounted() {
     //messages
     this.setSocket(this.$socket);
+    this.$socket.on('connect', () => this.connected = true);
     this.$socket.on("message", (message) => this.addMessage(message));
     this.$socket.on("messages", (messages) =>
       messages.forEach((msg) => this.addMessage(msg))

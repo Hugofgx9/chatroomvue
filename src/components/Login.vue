@@ -39,13 +39,13 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex';
 import Round from "./Round.vue";
 
 export default {
   components: { Round },
   data() {
     return {
-      colors: ["#292929", "#4C4C4C", "#C1C1C1", "#740B07", "#EF130B", "#C23800", "#FF7100", "#FFE400", "#E8A200", "#005510", "#0089A7", "#AF975A", "#00CC00", "#0E0865", "#231FD3", "#00569E", "#00B2FF", "#550069", "#A300BA", "#A75574", "#63300D", "#A0522D", "#AB866D", "#DDDF6D" ],
       selectedColor: "",
       username: "",
       isOpen: true,
@@ -61,13 +61,19 @@ export default {
       e.preventDefault();
       if (this.username || !this.username.length === 0)
         this.$socket.emit("setUsername", this.username);
+        this.setUserColor({user: this.$socket, color: this.selectedColor} ); 
       this.isOpen = false;
     },
     onChange(event) {
       this.selectedColor = event.target.value;
       //v-model dont work
     },
+    ...mapMutations(['setUserColor'])
   },
+
+  computed: {
+    ...mapState(['colors', 'socket'])
+  }
 };
 </script>
 
